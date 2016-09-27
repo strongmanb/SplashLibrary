@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -15,7 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.strongman.splash.imageloader.GlideImageLoader;
+import com.strongman.splash.imageloader.ImageLoader;
 
 import java.io.File;
 
@@ -56,6 +58,11 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
      * the duration of the counter to decrease
      */
     private long mCounterDuration = 1000;
+
+    /**
+     * image loader for load image from resId, url or file
+     */
+    private ImageLoader mImageLoader;
 
     private CounterListener mCounterListener;
 
@@ -118,7 +125,6 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
             int counterPaddingLeft = ta.getDimensionPixelSize(R.styleable.SplashLayout_counter_time_padding_left, dp2px(context, 5));
             int counterTopMargin = ta.getDimensionPixelSize(R.styleable.SplashLayout_counter_time_margin_top, dp2px(context, 5));
             int counterRightMargin = ta.getDimensionPixelSize(R.styleable.SplashLayout_counter_time_margin_right, dp2px(context, 10));
-            //int counterBackgroundColor = ta.getColor(R.styleable.SplashLayout_counter_time_background_color, Color.rgb(0, 0, 0));
             int counterLayoutBackgroundResId = ta.getResourceId(R.styleable.SplashLayout_counter_time_background_drawable, R.drawable.shape_splash_counter_background);
             int counterBetweenTitleAndNumMargin = ta.getDimensionPixelSize(R.styleable.SplashLayout_counter_time_between_title_and_num_margin, dp2px(context, 5));
 
@@ -144,8 +150,10 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
             this.mRemainTimeValueTv.setTextColor(counterTimeTextColor);
             this.mRemainTimeValueTv.setTextSize(TypedValue.COMPLEX_UNIT_PX, counterTimeTextSize);
         }
-
         ta.recycle();
+
+        //use glideImageLoader default
+        this.mImageLoader = new GlideImageLoader();
     }
 
 
@@ -175,7 +183,7 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
     public SplashLayout setSplashImage(@DrawableRes int resId) {
         if(mImageUrl != null || mImageFile != null){
             throw new IllegalStateException("Call multi image function," +
-                    "you only have permission to call it once");
+                    "you only have permission to call it once, you can call clearSplashimage method before it");
         }
         this.mImageResId = resId;
         setupSplashImage();
@@ -183,29 +191,38 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
     }
 
 
+    public void clearSplashImage() {
+        this.mImageUrl = null;
+        this.mImageFile = null;
+        this.mImageResId = 0;
+    }
+
+
     private void setupSplashImage() {
         if(mImageUrl != null) {
-            Glide.with(mContext).load(mImageUrl)
-                    .crossFade()
+            mImageLoader.loadFromUrl(mContext, mImageUrl, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
+           /* Glide.with(mContext).load(mImageUrl)
                     .placeholder(mImagePlaceHolderResId)
                     .error(mImageErrorResId)
-                    .into(mSplashImage);
+                    .into(mSplashImage);*/
         } else if(mImageFile != null) {
-            Glide.with(mContext).load(mImageFile)
-                    .crossFade()
+            mImageLoader.loadFromResId(mContext, mImageErrorResId, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
+            /*Glide.with(mContext).load(mImageFile)
                     .placeholder(mImagePlaceHolderResId)
                     .error(mImageErrorResId)
-                    .into(mSplashImage);
+                    .into(mSplashImage);*/
         } else if(mImageResId != 0) {
-            Glide.with(mContext).load(mImageResId)
-                    .crossFade()
+            mImageLoader.loadFromFile(mContext, mImageFile, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
+            /*Glide.with(mContext).load(mImageResId)
                     .placeholder(mImagePlaceHolderResId)
                     .error(mImageErrorResId)
-                    .into(mSplashImage);
+                    .into(mSplashImage);*/
         } else {
             throw new IllegalStateException("Please invoke setSplashImage method to set image for show");
         }
     }
+
+
 
 
     /**
@@ -260,9 +277,18 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
     @Override
     public void onClick(View v) {
         pauseCount();
-        if(mCounterListener != null) {
+        if (mCounterListener != null) {
             mCounterListener.stop();
         }
+    }
+
+
+    /**
+     * set your image loader which implements {@link ImageLoader}
+     * @param imageLoader
+     */
+    public void setImageLoader(@NonNull ImageLoader imageLoader) {
+        this.mImageLoader = imageLoader;
     }
 
 

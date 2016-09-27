@@ -1,0 +1,12 @@
+apply plugin: 'com.novoda.bintray-release'
+
+
+//添加
+publish {
+    userOrg = 'strongman'//bintray.com用户名
+    groupId = 'com.strongman'//jcenter上的路径
+    artifactId = 'image-slider'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'A image slider libiary for android'//描述
+    website = 'https://github.com/strongmanb/AndroidSmartImageSlider-master'
+}

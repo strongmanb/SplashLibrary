@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--app:counter_time_background_color="#32f2f2"
+    app:counter_time_background_drawable="@drawable/shape_splash_counter_bg"-->
+    <com.strongman.splash.SplashLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/splash_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:counter_is_show="true"
+        app:counter_time_text_size="12sp"
+        app:counter_time_text_color="#242424"
+        app:counter_time_total="25"
+        app:counter_time_padding_top="5dp"
+        app:counter_time_padding_right="5dp"
+        app:counter_time_padding_bottom="5dp"
+        app:counter_time_padding_left="5dp"
+        app:counter_time_margin_right="15dp"
+        app:counter_time_margin_top="15dp"
+        app:counter_time_between_title_and_num_margin="5dp"
+
+        app:splash_img_error="@mipmap/splash_place_holder_bg"
+        />

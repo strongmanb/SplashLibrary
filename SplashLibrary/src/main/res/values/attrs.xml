@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SplashLayout">
+        <attr name="counter_is_show" format="boolean"/>
+        <attr name="counter_time_total" format="integer"/>
+        <attr name="counter_time_text_size" format="dimension"/>
+        <attr name="counter_time_text_color" format="color" />
+        <attr name="counter_time_padding_left" format="dimension"/>
+        <attr name="counter_time_padding_right" format="dimension"/>
+        <attr name="counter_time_padding_top" format="dimension"/>
+        <attr name="counter_time_padding_bottom" format="dimension"/>
+        <attr name="counter_time_margin_top" format="dimension"/>
+        <attr name="counter_time_margin_right" format="dimension"/>
+        <attr name="counter_time_between_title_and_num_margin" format="dimension" />
+        <attr name="counter_time_background_drawable" format="reference"/>
+        <attr name="splash_img_placeholder" format="reference" />
+        <attr name="splash_img_error" format="reference" />
+    </declare-styleable>
+
+</resources>

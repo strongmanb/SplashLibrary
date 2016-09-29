@@ -269,8 +269,27 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
     }
 
 
+    /**
+     * set the counter listener
+     * @param mCounterListener
+     */
     public void setCounterStop(CounterListener mCounterListener) {
         this.mCounterListener = mCounterListener;
+    }
+
+
+    /**
+     * show counter if you call {@method hideCounter}
+     */
+    public void showCounter() {
+        this.mCounterLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * hide the counter
+     */
+    public void hideCounter() {
+        this.mCounterLayout.setVisibility(View.GONE);
     }
 
 

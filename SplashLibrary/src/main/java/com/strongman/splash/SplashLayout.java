@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Keep;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -25,7 +26,6 @@ import java.io.File;
  * this layout use for splash
  * Created by Strongman on 2016/9/26.
  */
-
 public class SplashLayout extends RelativeLayout implements View.OnClickListener {
 
     private Context mContext;
@@ -190,7 +190,6 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
         return this;
     }
 
-
     public void clearSplashImage() {
         this.mImageUrl = null;
         this.mImageFile = null;
@@ -201,22 +200,10 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
     private void setupSplashImage() {
         if(mImageUrl != null) {
             mImageLoader.loadFromUrl(mContext, mImageUrl, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
-           /* Glide.with(mContext).load(mImageUrl)
-                    .placeholder(mImagePlaceHolderResId)
-                    .error(mImageErrorResId)
-                    .into(mSplashImage);*/
         } else if(mImageFile != null) {
             mImageLoader.loadFromResId(mContext, mImageErrorResId, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
-            /*Glide.with(mContext).load(mImageFile)
-                    .placeholder(mImagePlaceHolderResId)
-                    .error(mImageErrorResId)
-                    .into(mSplashImage);*/
         } else if(mImageResId != 0) {
             mImageLoader.loadFromFile(mContext, mImageFile, mSplashImage, mImagePlaceHolderResId, mImageErrorResId);
-            /*Glide.with(mContext).load(mImageResId)
-                    .placeholder(mImagePlaceHolderResId)
-                    .error(mImageErrorResId)
-                    .into(mSplashImage);*/
         } else {
             throw new IllegalStateException("Please invoke setSplashImage method to set image for show");
         }
@@ -271,15 +258,14 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
 
     /**
      * set the counter listener
-     * @param mCounterListener
      */
-    public void setCounterStop(CounterListener mCounterListener) {
+    public void setCounterStopListener(CounterListener mCounterListener) {
         this.mCounterListener = mCounterListener;
     }
 
 
     /**
-     * show counter if you call {@method hideCounter}
+     * show counter if you call hideCounter
      */
     public void showCounter() {
         this.mCounterLayout.setVisibility(View.VISIBLE);
@@ -304,7 +290,6 @@ public class SplashLayout extends RelativeLayout implements View.OnClickListener
 
     /**
      * set your image loader which implements {@link ImageLoader}
-     * @param imageLoader
      */
     public void setImageLoader(@NonNull ImageLoader imageLoader) {
         this.mImageLoader = imageLoader;

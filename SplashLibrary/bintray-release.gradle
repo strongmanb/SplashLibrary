@@ -6,7 +6,7 @@ publish {
     userOrg = 'strongman'//bintray.com用户名
     groupId = 'com.strongman.splash'//jcenter上的路径
     artifactId = 'splash'//项目名称
-    publishVersion = '1.0.2'//版本号
+    publishVersion = '1.0.3'//版本号
     desc = 'A splash libiary for android'//描述
     website = 'https://github.com/strongmanb/SplashLibrary'
 }
